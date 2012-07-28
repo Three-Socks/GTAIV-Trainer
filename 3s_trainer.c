@@ -20,11 +20,7 @@
 #include "3s_trainer_lang.h"
 #include "3s_trainer_locals.h"
 
-//#include "3s_trainer_debug_globals.h"
-
 #include "project_setup.c"
-
-//#include "3s_trainer_debug.c"
 
 #include "3s_trainer_player.c"
 #include "3s_trainer_vehicle.c"
