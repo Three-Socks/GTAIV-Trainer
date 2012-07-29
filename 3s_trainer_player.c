@@ -73,7 +73,7 @@ void player_model_apply(void)
 		LOAD_SCENE(curX, curY, curZ);
 	}
 
-	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_invincible") == 1)
+	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_health") == 1)
 		SET_PLAYER_INVINCIBLE(GetPlayerIndex(), true);
 
 }
