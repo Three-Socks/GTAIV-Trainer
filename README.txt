@@ -4,10 +4,9 @@ Three-Socks Trainer
 
 Release topic: http://psx-scene.com/forums/f276/%5Brel%5D-three-socks-trainer-v1-0-beta-104903/ (Infomation/Downloads)
 
-== Project Code Gguidelines ==
+== Project Code Guidelines ==
 * No new global vars - Causes random bugs.
 * Limit use of WAIT native - Causes draw natives to stop drawing for the duration of the WAIT.
-* 
 
 == For Developers: How To Compile ==
 

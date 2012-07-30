@@ -75,7 +75,6 @@ void player_model_apply(void)
 
 	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_health") == 1)
 		SET_PLAYER_INVINCIBLE(GetPlayerIndex(), true);
-
 }
 
 void player_model_GTAIV_story1(void)

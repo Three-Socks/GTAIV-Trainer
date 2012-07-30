@@ -5,8 +5,6 @@
 
 #pragma once
 
-#include "../3s_trainer_lang.h"
-
 void menu_hold_pressed(uint p_id)
 {
 	uint button1;
@@ -281,7 +279,7 @@ void menu_draw(void)
 						txt_on = custom_bool_on;
 					}
 					else
-						txt_on = trainer_on;
+						txt_on = menu_on;
 					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_on);
 				}
 				else
@@ -294,7 +292,7 @@ void menu_draw(void)
 						txt_off = custom_bool_off;
 					}
 					else
-						txt_off = trainer_off;
+						txt_off = menu_off;
 					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_off);
 				}
 			}

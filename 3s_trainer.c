@@ -38,12 +38,9 @@ void main(void)
 {
 	menu_core_init();
 
-	project_startup();
-
 	while(true)
 	{
 		WAIT(0);
-		HIDE_HELP_TEXT_THIS_FRAME();
 
 		if (inMenu)
 		{

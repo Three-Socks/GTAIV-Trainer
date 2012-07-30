@@ -187,9 +187,6 @@
 #define trainer_visible "Visible"
 #define trainer_missionvehicle "Mission Vehicle"
 
-#define trainer_on "On"
-#define trainer_off "Off"
-
 // Error
 #define trainer_error "ERROR!"
 #define trainer_error_invalid "Invalid Menu."

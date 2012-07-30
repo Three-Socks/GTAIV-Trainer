@@ -16,9 +16,9 @@ void project_doAction(void)
 
 	if (menu_level == 1)
 	{
+		// Exit
 		if (item_selected == 3)
-			// Exit
-			project_shutdown();
+			menu_shutdown = true;
 	}
 	else if (mainMenu == 1)
 	{
