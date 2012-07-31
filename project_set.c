@@ -35,8 +35,7 @@ void project_set(void)
 			menu_addItem(trainer_accessories);
 			menu_addItem(trainer_weapons);
 			menu_addItem(trainer_health);
-			menu_addItem(trainer_clearwanted);
-			menu_addAction();
+			menu_addItem(trainer_wanted);
 
 			return;	
 		}
@@ -49,9 +48,11 @@ void project_set(void)
 			else if (item_selected == 3)
 				player_accessories();
 			else if (item_selected == 4)
-				player_weapons();
+				player_weapons_cat();
 			else if (item_selected == 5)
 				player_health();
+			else if (item_selected == 6)
+				player_wanted();
 
 			return;
 		}
@@ -64,6 +65,17 @@ void project_set(void)
 				player_appearance_vt(true);
 			else if (subMenu == 3)
 				player_accessories();
+			else if (subMenu == 4)
+			{
+				player_weapons();
+
+				if (item_selected == 1)
+					player_weapons_GTAIV();
+				else if (item_selected == 2)
+					player_weapons_TLAD();
+				else if (item_selected == 3)
+					player_weapons_TBOGT();
+			}
 
 			return;
 		}

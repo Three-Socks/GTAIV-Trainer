@@ -48,4 +48,6 @@ void project_error(uint error_id)
 
 	menu_addItem(trainer_error_goback);
 	inError = true;
+
+	PLAY_AUDIO_EVENT("FRONTEND_MENU_ERROR");
 }

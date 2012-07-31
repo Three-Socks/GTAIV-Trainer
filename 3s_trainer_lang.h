@@ -20,7 +20,7 @@
 #define trainer_accessories "Accessories"
 #define trainer_weapons "Weapons"
 #define trainer_health "Health"
-#define trainer_clearwanted "Clear Wanted"
+#define trainer_wanted "Wanted"
 
 // Model Changer
 #define trainer_story "Story"
@@ -82,6 +82,12 @@
 #define trainer_addarmour "Add Armour"
 #define trainer_removearmour "Remove Armour"
 #define trainer_invincible "Invincible"
+
+// Wanted
+#define trainer_clearwanted "Clear Wanted"
+#define trainer_wantedlevel "Wanted Level"
+#define trainer_wantedmulti "Wanted Multi"
+#define trainer_neverwanted "Never Wanted"
 
 // Vehicle
 #define trainer_spawn "Spawn"

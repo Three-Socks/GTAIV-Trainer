@@ -7,8 +7,11 @@ void player_model_gamecat(void)
 {
 	menu_header = trainer_model;
 	menu_addItem(trainer_gtaiv);
-	menu_addItem(trainer_tlad);
-	menu_addItem(trainer_tbogt);
+	if (GET_CURRENT_EPISODE() == 1 || GET_CURRENT_EPISODE() == 2)
+	{
+		menu_addItem(trainer_tlad);
+		menu_addItem(trainer_tbogt);
+	}
 }
 
 void player_model_cat(void)
@@ -57,8 +60,10 @@ void player_model_apply(void)
 	CHANGE_PLAYER_MODEL(GetPlayerIndex(), player_model);
 	MARK_MODEL_AS_NO_LONGER_NEEDED(player_model);
 	model_loaded = false;
+	//model_wait = 0;
 
 	SET_CHAR_DEFAULT_COMPONENT_VARIATION(GetPlayerPed());
+	FORCE_FULL_VOICE(GetPlayerPed());
 
 	if (DOES_VEHICLE_EXIST(v_modding))
 		WARP_CHAR_INTO_CAR(GetPlayerPed(), v_modding);
@@ -1532,11 +1537,22 @@ void player_accessories_apply(void)
 		SET_CHAR_PROP_INDEX_TEXTURE(GetPlayerPed(), type, index, menu_item[2].num_val - 1);
 }
 
-void player_weapons(void)
+void player_weapons_cat(void)
 {
-	uint ammo, maxAmmo;
 
 	menu_header = trainer_weapons;
+	menu_addItem(trainer_gtaiv);
+	if (GET_CURRENT_EPISODE() == 1 || GET_CURRENT_EPISODE() == 2)
+	{
+		menu_addItem(trainer_tlad);
+		menu_addItem(trainer_tbogt);
+	}
+}
+
+void player_weapons(void)
+{
+	uint maxAmmo;
+
 	menu_addItem(trainer_allpoor);
 	menu_addAction();
 
@@ -1555,6 +1571,11 @@ void player_weapons(void)
 
 	menu_addItemBool(maxCap);
 	menu_addAction();
+}
+
+void player_weapons_GTAIV(void)
+{
+	uint maxAmmo;
 
 	menu_addItem(trainer_baseball);
 	menu_addAction();
@@ -1565,145 +1586,194 @@ void player_weapons(void)
 	menu_addItem(trainer_knife);
 	menu_addAction();
 
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_GRENADE, &maxAmmo);
+	bool maxCap;
+
+	if (maxAmmo == 25)
+		maxCap = true;
+
 	if (!maxCap)
 		ENABLE_MAX_AMMO_CAP(true);
 
 	menu_addItem(trainer_grenade);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_GRENADE, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_GRENADE, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_molotov);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_MOLOTOV, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_MOLOTOV, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_9mm);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_PISTOL, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_PISTOL, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_deagle);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_DEAGLE, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_DEAGLE, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_pshotgun);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_SHOTGUN, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_SHOTGUN, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_shotgun);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_BARETTA, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_BARETTA, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_mircosmg);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_MICRO_UZI, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_MICRO_UZI, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_smg);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_MP5, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_MP5, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_ak47);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_AK47, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_AK47, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_m4);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_M4, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_M4, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_combatsniper);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_M40A1, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_M40A1, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_sniperrifle);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_SNIPERRIFLE, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_SNIPERRIFLE, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	menu_addItem(trainer_rpg);
-	GET_AMMO_IN_CHAR_WEAPON(GetPlayerPed(), WEAPON_RLAUNCHER, &ammo);
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_RLAUNCHER, &maxAmmo);
-	if (ammo > 1)
-		ammo = ammo;
-	else
-		ammo = maxAmmo;
-	menu_addItemNumber(ammo, maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
 	if (!maxCap)
 		ENABLE_MAX_AMMO_CAP(false);
-
 }
 
-void player_weapons_apply(void)
+void player_weapons_TLAD(void)
+{
+	uint maxAmmo;
+
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_GRENADE, &maxAmmo);
+	bool maxCap;
+
+	if (maxAmmo == 25)
+		maxCap = true;
+
+	if (!maxCap)
+		ENABLE_MAX_AMMO_CAP(true);
+
+	menu_addItem("Grenade Launcher");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_1, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Sweeper");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_2, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Pool Cue");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_4, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Sawnoff Shotgun");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_6, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Semi-Auto Pistol");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_7, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Pipe Bomb");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_8, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	if (!maxCap)
+		ENABLE_MAX_AMMO_CAP(false);
+}
+
+void player_weapons_TBOGT(void)
+{
+	uint maxAmmo;
+
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_GRENADE, &maxAmmo);
+	bool maxCap;
+
+	if (maxAmmo == 25)
+		maxCap = true;
+
+	if (!maxCap)
+		ENABLE_MAX_AMMO_CAP(true);
+
+	menu_addItem("Pistol 44");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_9, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Explosive AA12");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_10, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("AA12");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_11, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("P90");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_12, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Gold Uzi");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_13, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("M249");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_14, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("DSR-1 Sniper");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_15, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Sticky Bomb");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_16, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	menu_addItem("Parachute");
+	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_21, &maxAmmo);
+	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addAction();
+
+	if (!maxCap)
+		ENABLE_MAX_AMMO_CAP(false);
+}
+
+void player_weapons_options_apply(void)
 {
 	if (item_selected == 1)
 		ACTIVATE_CHEAT(0);
@@ -1724,15 +1794,36 @@ void player_weapons_apply(void)
 			menu_item[item_selected].extra_val = true;
 		}
 	}
-	else
+}
+
+void player_weapons_apply(void)
+{
+	if (item_selected >= 5)
 	{
 		uint weapon = item_selected - 4;
 		
-		if (weapon >= 6)
-			weapon++;
+		if (GET_CURRENT_EPISODE() == 1)
+		{
+			weapon += 20;
 
-		if (weapon >= 8)
-			weapon++;
+			if (weapon >= 23)
+				weapon++;
+		}
+		else if (GET_CURRENT_EPISODE() == 2)
+		{
+			weapon += 28;
+
+			if (weapon == 36)
+				weapon += 4;
+		}
+		else
+		{
+			if (weapon >= 6)
+				weapon++;
+
+			if (weapon >= 8)
+				weapon++;
+		}
 
 		GIVE_WEAPON_TO_CHAR(GetPlayerPed(), weapon, menu_item[item_selected].num_val, false);
 		SET_CURRENT_CHAR_WEAPON(GetPlayerPed(), weapon, true);
@@ -1790,6 +1881,58 @@ void player_health_apply(void)
 
 			START_NEW_SCRIPT("3s_trainer_health", 1024);
 			MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_health");
+			menu_item[item_selected].extra_val = true;
+		}
+	}
+}
+
+void player_wanted(void)
+{
+	menu_header = trainer_wanted;
+	menu_addItem(trainer_clearwanted);
+	menu_addAction();
+
+	uint wantedLevel;
+	STORE_WANTED_LEVEL(GetPlayerIndex(), &wantedLevel);
+
+	if (wantedLevel == 0)
+		wantedLevel = 1;
+
+	menu_addItem(trainer_wantedlevel);
+	menu_addItemNumber(wantedLevel, 6);
+	menu_addAction();
+
+	menu_addItem(trainer_wantedmulti);
+	menu_addItemFloat(1, 10);
+	menu_addAction();
+
+	menu_addItem(trainer_neverwanted);
+	menu_addItemBool(false);
+	menu_addAction();
+}
+
+void player_wanted_apply(void)
+{
+	if (item_selected == 1)
+		CLEAR_WANTED_LEVEL(GetPlayerIndex());
+	else if (item_selected == 2)
+	{
+		ALTER_WANTED_LEVEL(GetPlayerIndex(), menu_item[item_selected].num_val);
+		APPLY_WANTED_LEVEL_CHANGE_NOW(GetPlayerIndex());
+	}
+	else if (item_selected == 3)
+		SET_WANTED_MULTIPLIER(menu_item[item_selected].float_val - 1);
+	else if (item_selected == 4)
+	{
+		if (menu_item[item_selected].extra_val)
+		{
+			SET_WANTED_MULTIPLIER(1.0);
+			menu_item[item_selected].extra_val = false;
+		}
+		else
+		{
+			CLEAR_WANTED_LEVEL(GetPlayerIndex());
+			SET_WANTED_MULTIPLIER(0.0);
 			menu_item[item_selected].extra_val = true;
 		}
 	}

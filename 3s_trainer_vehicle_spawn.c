@@ -5,9 +5,13 @@
 
 void gms_spawn_cat(void)
 {
+	menu_header = trainer_spawn;
 	menu_addItem(trainer_gtaiv);
-	menu_addItem(trainer_tlad);
-	menu_addItem(trainer_tbogt);
+	if (GET_CURRENT_EPISODE() == 1 || GET_CURRENT_EPISODE() == 2)
+	{
+		menu_addItem(trainer_tlad);
+		menu_addItem(trainer_tbogt);
+	}
 }
 
 void gms_spawn(void)
@@ -80,6 +84,7 @@ void gms_spawn_apply(void)
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED(vehicle_model);
 	model_loaded = false;
+	//model_wait = 0;
 
 	WARP_CHAR_INTO_CAR(GetPlayerPed(), v_modding);
 

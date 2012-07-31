@@ -22,24 +22,16 @@ void project_doAction(void)
 	}
 	else if (mainMenu == 1)
 	{
-		if (menu_level == 2)
-		{
-			if (item_selected == 6)
-			{
-				CLEAR_WANTED_LEVEL(GetPlayerIndex());
-				return;
-			}
-		}
-		else if (menu_level == 3)
+		if (menu_level == 3)
 		{
 			if (subMenu == 2) 
 				player_appearance_apply();
 			else if (subMenu == 3)
 				player_accessories_apply();
-			else if (subMenu == 4)
-				player_weapons_apply();
 			else if (subMenu == 5)
 				player_health_apply();
+			else if (subMenu == 6)
+				player_wanted_apply();
 
 			return;
 		}
@@ -47,6 +39,13 @@ void project_doAction(void)
 		{
 			if (subMenu == 2)
 				player_appearance_vt_apply();
+			else if (subMenu == 4)
+			{
+				if (item_selected <= 4)
+					player_weapons_options_apply();
+				else
+					player_weapons_apply();
+			}
 
 			return;
 		}
@@ -163,20 +162,26 @@ void load_model_prioritized(void)
 {
 	if (IS_MODEL_IN_CDIMAGE(load_model))
 	{
-		if (!model_requested)
-		{
-				PRIORITIZE_STREAMING_REQUEST();
-				REQUEST_MODEL(load_model);
-				model_requested = true;
-		}
+		//if (model_wait > 15)
+		//{
+			if (!model_requested)
+			{
+					PRIORITIZE_STREAMING_REQUEST();
+					REQUEST_MODEL(load_model);
+					model_requested = true;
+			}
 
-		if (HAS_MODEL_LOADED(load_model))
-		{
-			load_model = 0;
-			model_loaded = true;
-			model_requested = false;
-			project_doAction();
-		}
+			if (HAS_MODEL_LOADED(load_model))
+			{
+				//model_wait = 0;
+				load_model = 0;
+				model_loaded = true;
+				model_requested = false;
+				project_doAction();
+			}
+		//}
+		//else
+			//model_wait++;
 	}
 	else
 	{

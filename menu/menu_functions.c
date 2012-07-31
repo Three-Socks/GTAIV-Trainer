@@ -175,131 +175,6 @@ void menu_addAction(void)
 	menu_item[menu_len].action = true;
 }
 
-// Draws the menu.
-void menu_draw(void)
-{
-	uint d_r = 137, d_g = 137, d_b = 137, 
-	h_r = 251, h_g = 162, h_b = 6;
-	//h_r = 206, h_g = 160, h_b = 22;
-
-	float pos_x = 0.0826, 
-
-	toggle_pos_x = 0.2500, 
-
-	menu_width = 0.3100, menu_height = 0.4550;
-
-	uint r, g, b, a = 255;
-	int I;
-	float Ipos_y = menu_start_y;
-
-	for (I = 1; I <= menu_len; I++)
-	{
-		Ipos_y = Ipos_y + menu_spacing;
-		if (I <= menu_max && Ipos_y > (menu_consts_start_y + 0.0100))
-		{
-			r = d_r;
-			g = d_g;
-			b = d_b;
-
-			if (item_highlighted == I && !inError)
-			{
-				r =  h_r;
-				g =  h_g;
-				b =  h_b;
-			}
-
-			set_up_draw(menu_width, menu_height, r, g, b, a);
-
-			if (menu_item[I].type == 5)
-				DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x, Ipos_y, "STRING", GET_STRING_FROM_TEXT_FILE(GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(menu_item[I].num_val)));
-			else
-				DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x, Ipos_y, "STRING", menu_item[I].name);
-
-			if (menu_item[I].type == 1 || menu_item[I].type == 2)
-			{
-				float left_pos_x, main_pos_x;
-
-				if (menu_item[I].type == 2)
-				{
-					if (menu_item[I].float_val >= 10.0)
-					{
-						left_pos_x = 0.2260;
-						main_pos_x = 0.2370;
-					}
-					else if (menu_item[I].float_val < 10.0)
-					{
-						left_pos_x = 0.2370;
-						main_pos_x = 0.2470;
-					}
-				}
-				else
-				{
-					if (menu_item[I].num_val < 10)
-					{
-						left_pos_x = 0.2530;
-						main_pos_x = 0.2630;
-					}
-
-					if (menu_item[I].num_val >= 10)
-					{
-						left_pos_x = 0.2430;
-						main_pos_x = 0.2520;
-					}
-
-					if (menu_item[I].num_val >= 100)
-					{
-						left_pos_x = 0.2270;
-						main_pos_x = 0.2380;
-					}
-
-					if (menu_item[I].num_val >= 1000)
-					{
-						left_pos_x = 0.2200;
-						main_pos_x = 0.2300;
-					}
-				}
-
-				DRAW_SPRITE(rightarrow_txd, left_pos_x, Ipos_y + 0.0150, 0.0160, 0.0160, 180.0000, r, g, b, a);
-				set_up_draw(menu_width, menu_height, r, g, b, a);
-				if (menu_item[I].type == 1)
-					DISPLAY_TEXT_WITH_NUMBER(main_pos_x, Ipos_y, "NUMBR", menu_item[I].num_val);
-				else if (menu_item[I].type == 2)
-					DISPLAY_TEXT_WITH_FLOAT(main_pos_x, Ipos_y, "NUMBR", menu_item[I].float_val, 1);
-				DRAW_SPRITE(rightarrow_txd, 0.2850, Ipos_y + 0.0150, 0.0160, 0.0160, 0.0000, r, g, b, a);
-			}
-			else if (menu_item[I].type == 3)
-			{
-				if (menu_item[I].extra_val)
-				{
-					set_up_draw(menu_width, menu_height, h_r, h_g, h_b, a);
-					char *txt_on;
-					if (!COMPARE_STRING(custom_bool_on, " "))
-					{
-						toggle_pos_x = 0.2000;
-						txt_on = custom_bool_on;
-					}
-					else
-						txt_on = menu_on;
-					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_on);
-				}
-				else
-				{
-					set_up_draw(menu_width, menu_height, d_r, d_g, d_b, a);
-					char *txt_off;
-					if (!COMPARE_STRING(custom_bool_off, " "))
-					{
-						toggle_pos_x = 0.2000;
-						txt_off = custom_bool_off;
-					}
-					else
-						txt_off = menu_off;
-					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_off);
-				}
-			}
-		}
-	}
-}
-
 void menu_clean(void)
 {
 	int I;
@@ -322,4 +197,22 @@ void menu_clean(void)
 
 	// Reset menu_len.
 	menu_len = 0;
+}
+
+float draw_text_width(char *gxtName, float x, float y, char *val)
+{
+	float result;
+	result = GET_STRING_WIDTH_WITH_STRING(gxtName, val);
+	DISPLAY_TEXT_WITH_LITERAL_STRING(x, y, gxtName, val);
+	return result;
+}
+
+void draw_number(char *gxtName, float x, float y, int val)
+{
+	DISPLAY_TEXT_WITH_NUMBER(x, y, gxtName, val);
+}
+
+void draw_float(char *gxtName, float x, float y, float val, uint dp)
+{
+	DISPLAY_TEXT_WITH_FLOAT(x, y, gxtName, val, dp);
 }

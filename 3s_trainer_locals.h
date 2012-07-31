@@ -18,7 +18,9 @@ enum eGenvareErrorID
 
 bool inMenu;
 
-uint load_model;
+uint load_model; 
+//model_wait
+
 bool model_loaded, model_requested;
 
 uint window_notintact[5], door_damaged[7], door_opened[7];

@@ -12,6 +12,7 @@
 //#define PC
 #define MAX_MENU_ITEMS 52
 #define MAX_MENU_LEVLS 5
+#define STYLE 1
 
 // Menu
 #include "menu/menu.h"
@@ -37,6 +38,7 @@
 void main(void)
 {
 	menu_core_init();
+	draw_init();
 
 	while(true)
 	{
@@ -48,7 +50,8 @@ void main(void)
 				load_model_prioritized();
 
 			// Core menu function (Catch button press. Set menu).
-			menu_core();
+			if (load_model == 0)
+				menu_core();
 
 			// Draw background/header/text.
 			drawCurvedWindow();
@@ -61,12 +64,6 @@ void main(void)
 			
 				drawHeader();
 				menu_draw();
-
-				if (menu_len > menu_consts_max && item_highlighted > menu_start_scrolling)
-					DRAW_SPRITE(arrow_txd, 0.1900, 0.1260, 0.0160, 0.0160, 0, 255, 255, 255, 255);
-
-				if (menu_len > menu_consts_max)
-					DRAW_SPRITE(arrow_txd, 0.1900, 0.6890, 0.0160, 0.0160, 180.0000, 255, 255, 255, 255);
 			}
 		}
 		else
