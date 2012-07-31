@@ -5,6 +5,14 @@
 
 #pragma once
 
+/*
+
+Style: 1
+
+Mimics GTA Frontend.
+
+*/
+
 void draw_init()
 {
 	SET_CINEMATIC_BUTTON_ENABLED(false);
@@ -31,6 +39,8 @@ void draw_init()
 
 	arrow_txd = GET_TEXTURE_FROM_STREAMED_TXD("network", "ICON_W_ARROW_UP");
 	rightarrow_txd = GET_TEXTURE_FROM_STREAMED_TXD("network", "ICON_W_ARROW_RIGHT");
+
+	PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_READY");
 }
 
 void draw_shutdown()
@@ -46,6 +56,8 @@ void draw_shutdown()
 	SET_CINEMATIC_BUTTON_ENABLED(true);
 
 	DESTROY_MOBILE_PHONE();
+
+	PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_UNREADY");
 }
 
 void set_up_draw(float width, float height, uint r, uint g, uint b, uint a)

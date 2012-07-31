@@ -19,7 +19,6 @@ enum eGenvareErrorID
 bool inMenu;
 
 uint load_model; 
-//model_wait
 
 bool model_loaded, model_requested;
 

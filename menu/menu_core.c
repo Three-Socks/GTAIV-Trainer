@@ -24,14 +24,10 @@ void menu_core_init(void)
 
 	START_NEW_SCRIPT_WITH_ARGS("menu_globals", &episode, 1, 128);
 	MARK_SCRIPT_AS_NO_LONGER_NEEDED("menu_globals");
-
-	PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_READY");
 }
 
 void menu_core_shutdown(void)
 {
-	draw_shutdown();
-
 	TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("menu_globals");
 
 	REQUEST_SCRIPT("menu_gexit");
@@ -50,7 +46,8 @@ void menu_core_shutdown(void)
 	START_NEW_SCRIPT(startup_script, 128);
 	MARK_SCRIPT_AS_NO_LONGER_NEEDED(startup_script);
 
-	PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_UNREADY");
+	draw_shutdown();
+
 	TERMINATE_THIS_SCRIPT();
 }
 

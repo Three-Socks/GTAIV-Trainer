@@ -18,7 +18,10 @@ void project_doAction(void)
 	{
 		// Exit
 		if (item_selected == 3)
+		{
 			menu_shutdown = true;
+			return;
+		}
 	}
 	else if (mainMenu == 1)
 	{
@@ -162,26 +165,20 @@ void load_model_prioritized(void)
 {
 	if (IS_MODEL_IN_CDIMAGE(load_model))
 	{
-		//if (model_wait > 15)
-		//{
-			if (!model_requested)
-			{
-					PRIORITIZE_STREAMING_REQUEST();
-					REQUEST_MODEL(load_model);
-					model_requested = true;
-			}
+		if (!model_requested)
+		{
+				PRIORITIZE_STREAMING_REQUEST();
+				REQUEST_MODEL(load_model);
+				model_requested = true;
+		}
 
-			if (HAS_MODEL_LOADED(load_model))
-			{
-				//model_wait = 0;
-				load_model = 0;
-				model_loaded = true;
-				model_requested = false;
-				project_doAction();
-			}
-		//}
-		//else
-			//model_wait++;
+		if (HAS_MODEL_LOADED(load_model))
+		{
+			load_model = 0;
+			model_loaded = true;
+			model_requested = false;
+			project_doAction();
+		}
 	}
 	else
 	{

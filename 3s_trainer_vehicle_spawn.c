@@ -7,11 +7,10 @@ void gms_spawn_cat(void)
 {
 	menu_header = trainer_spawn;
 	menu_addItem(trainer_gtaiv);
-	if (GET_CURRENT_EPISODE() == 1 || GET_CURRENT_EPISODE() == 2)
-	{
+	if (GET_CURRENT_EPISODE() == 1)
 		menu_addItem(trainer_tlad);
+	else if (GET_CURRENT_EPISODE() == 2)
 		menu_addItem(trainer_tbogt);
-	}
 }
 
 void gms_spawn(void)
@@ -35,17 +34,20 @@ void gms_spawn(void)
 	}
 	else if (item_selected == 2)
 	{
-		menu_addItem(trainer_cars);
-		menu_addItem(trainer_motorcycles);
-		menu_addItem(trainer_motorcycles2);
-	}
-	else if (item_selected == 3)
-	{
-		menu_addItem(trainer_cars);
-		menu_addItem(trainer_cars2);
-		menu_addItem(trainer_motorcycles);
-		menu_addItem(trainer_boats);
-		menu_addItem(trainer_aircraft);
+		if (GET_CURRENT_EPISODE() == 1)
+		{
+			menu_addItem(trainer_cars);
+			menu_addItem(trainer_motorcycles);
+			menu_addItem(trainer_motorcycles2);
+		}
+		else if (GET_CURRENT_EPISODE() == 2)
+		{
+			menu_addItem(trainer_cars);
+			menu_addItem(trainer_cars2);
+			menu_addItem(trainer_motorcycles);
+			menu_addItem(trainer_boats);
+			menu_addItem(trainer_aircraft);
+		}
 	}
 }
 
@@ -54,8 +56,6 @@ void gms_spawn_apply(void)
 	uint vehicle_model = menu_item[item_selected].num_val;
 
 	GET_CAR_CHAR_IS_USING(GetPlayerPed(), &v_modding);
-
-	//GET_CHAR_SPEED(Ped ped, float *pValue);
 
 	float curSpeed, curHeading, curX, curY, curZ;
 	if (DOES_VEHICLE_EXIST(v_modding))
@@ -84,7 +84,6 @@ void gms_spawn_apply(void)
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED(vehicle_model);
 	model_loaded = false;
-	//model_wait = 0;
 
 	WARP_CHAR_INTO_CAR(GetPlayerPed(), v_modding);
 
@@ -397,148 +396,152 @@ void gms_spawn_list(void)
 	}
 	else if (last_selected[3] == 2)
 	{
-		if (item_selected == 1)
+		if (GET_CURRENT_EPISODE() == 1)
 		{
-			menu_addItemGXTHash(MODEL_GBURRITO);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SLAMVAN);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_TOWTRUCK);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_PACKER2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_PBUS);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_YANKEE2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_RHAPSODY);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_REGINA);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_TAMPA);
-			menu_addAction();
+			if (item_selected == 1)
+			{
+				menu_addItemGXTHash(MODEL_GBURRITO);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SLAMVAN);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_TOWTRUCK);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_PACKER2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_PBUS);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_YANKEE2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_RHAPSODY);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_REGINA);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_TAMPA);
+				menu_addAction();
+			}
+			else if (item_selected == 2)
+			{
+				menu_addItemGXTHash(MODEL_ANGEL);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_BATI);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_BATI2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_DAEMON);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_DIABOLUS);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_DOUBLE);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_DOUBLE2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_HAKUCHOU);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_HAKUCHOU2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_HEXER);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_INNOVATION);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_LYCAN);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_NIGHTBLADE);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_REVENANT);
+				menu_addAction();
+			}
+			else if (item_selected == 3)
+			{
+				menu_addItemGXTHash(MODEL_WAYFARER);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_WOLFSBANE);
+				menu_addAction();
+			}
 		}
-		else if (item_selected == 2)
+		else if (GET_CURRENT_EPISODE() == 2)
 		{
-			menu_addItemGXTHash(MODEL_ANGEL);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_BATI);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_BATI2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_DAEMON);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_DIABOLUS);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_DOUBLE);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_DOUBLE2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_HAKUCHOU);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_HAKUCHOU2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_HEXER);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_INNOVATION);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_LYCAN);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_NIGHTBLADE);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_REVENANT);
-			menu_addAction();
+			if (item_selected == 1)
+			{
+				menu_addItemGXTHash(MODEL_SLAMVAN);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_CADDY);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_APC);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SUPERD);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SUPERD2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SERRANO);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SERRANO2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_BUFFALO);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_AVAN);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SCHAFTER2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SCHAFTER3);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_BULLET);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_TAMPA);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_CAVALCADE2);
+				menu_addAction();
+			}
+			else if (item_selected == 2)
+			{
+				menu_addItemGXTHash(MODEL_F620);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_LIMO2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_POLICE3);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_POLICEW);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_POLICE4);
+				menu_addAction();
+			}
+			else if (item_selected == 3)
+			{
+				menu_addItemGXTHash(MODEL_POLICEB);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_HEXER);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_FAGGIO2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_BATI2);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_VADER);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_AKUMA);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_HAKUCHOU);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_DOUBLE);
+				menu_addAction();
+			}
+			else if (item_selected == 4)
+			{
+				menu_addItemGXTHash(MODEL_SMUGGLER);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_FLOATER);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_BLADE);
+				menu_addAction();
+			}
+			else if (item_selected == 5)
+			{
+				menu_addItemGXTHash(MODEL_BUZZARD);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SWIFT);
+				menu_addAction();
+				menu_addItemGXTHash(MODEL_SKYLIFT);
+				menu_addAction();
+			}
 		}
-		else if (item_selected == 3)
-		{
-			menu_addItemGXTHash(MODEL_WAYFARER);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_WOLFSBANE);
-			menu_addAction();
-		}
-	}
-	else if (last_selected[3] == 3)
-	{
-		if (item_selected == 1)
-		{
-			menu_addItemGXTHash(MODEL_SLAMVAN);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_CADDY);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_APC);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SUPERD);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SUPERD2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SERRANO);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SERRANO2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_BUFFALO);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_AVAN);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SCHAFTER2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SCHAFTER3);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_BULLET);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_TAMPA);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_CAVALCADE2);
-			menu_addAction();
-		}
-		else if (item_selected == 2)
-		{
-			menu_addItemGXTHash(MODEL_F620);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_LIMO2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_POLICE3);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_POLICEW);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_POLICE4);
-			menu_addAction();
-		}
-		else if (item_selected == 3)
-		{
-			menu_addItemGXTHash(MODEL_POLICEB);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_HEXER);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_FAGGIO2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_BATI2);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_VADER);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_AKUMA);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_HAKUCHOU);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_DOUBLE);
-			menu_addAction();
-		}
-		else if (item_selected == 4)
-		{
-			menu_addItemGXTHash(MODEL_SMUGGLER);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_FLOATER);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_BLADE);
-			menu_addAction();
-		}
-		else if (item_selected == 5)
-		{
-			menu_addItemGXTHash(MODEL_BUZZARD);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SWIFT);
-			menu_addAction();
-			menu_addItemGXTHash(MODEL_SKYLIFT);
-			menu_addAction();
-		}
+
 	}
 }

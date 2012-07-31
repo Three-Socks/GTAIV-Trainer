@@ -72,9 +72,12 @@ void project_set(void)
 				if (item_selected == 1)
 					player_weapons_GTAIV();
 				else if (item_selected == 2)
-					player_weapons_TLAD();
-				else if (item_selected == 3)
-					player_weapons_TBOGT();
+				{
+					if (GET_CURRENT_EPISODE() == 1)
+						player_weapons_TLAD();
+					else if (GET_CURRENT_EPISODE() == 2)
+						player_weapons_TBOGT();
+				}
 			}
 
 			return;
@@ -109,27 +112,30 @@ void project_set(void)
 				}
 				else if (game == 2)
 				{
-					if (item_selected == 1)
-						player_model_TLAD_story();
-					else if (item_selected == 2)
-						player_model_TLAD_gangs();
-					else if (item_selected == 3)
-						player_model_TLAD_buddies();
-					else if (item_selected == 4)
-						player_model_TLAD_ambients();
-				}
-				else if (game == 3)
-				{
-					if (item_selected == 1)
-						player_model_TBOGT_story();
-					else if (item_selected == 2)
-						player_model_TBOGT_gangs();
-					else if (item_selected == 3)
-						player_model_TBOGT_ambients();
-					else if (item_selected == 4)
-						player_model_TBOGT_fighters();
-					else if (item_selected == 5)
-						player_model_TBOGT_MissionSpecific();
+					if (GET_CURRENT_EPISODE() == 1)
+					{
+						if (item_selected == 1)
+							player_model_TLAD_story();
+						else if (item_selected == 2)
+							player_model_TLAD_gangs();
+						else if (item_selected == 3)
+							player_model_TLAD_buddies();
+						else if (item_selected == 4)
+							player_model_TLAD_ambients();
+					}
+					else if (GET_CURRENT_EPISODE() == 2)
+					{
+						if (item_selected == 1)
+							player_model_TBOGT_story();
+						else if (item_selected == 2)
+							player_model_TBOGT_gangs();
+						else if (item_selected == 3)
+							player_model_TBOGT_ambients();
+						else if (item_selected == 4)
+							player_model_TBOGT_fighters();
+						else if (item_selected == 5)
+							player_model_TBOGT_MissionSpecific();
+					}
 				}
 			}
 			return;

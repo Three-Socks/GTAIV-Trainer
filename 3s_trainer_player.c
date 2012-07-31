@@ -7,11 +7,10 @@ void player_model_gamecat(void)
 {
 	menu_header = trainer_model;
 	menu_addItem(trainer_gtaiv);
-	if (GET_CURRENT_EPISODE() == 1 || GET_CURRENT_EPISODE() == 2)
-	{
+	if (GET_CURRENT_EPISODE() == 1)
 		menu_addItem(trainer_tlad);
+	else if (GET_CURRENT_EPISODE() == 2)
 		menu_addItem(trainer_tbogt);
-	}
 }
 
 void player_model_cat(void)
@@ -60,7 +59,6 @@ void player_model_apply(void)
 	CHANGE_PLAYER_MODEL(GetPlayerIndex(), player_model);
 	MARK_MODEL_AS_NO_LONGER_NEEDED(player_model);
 	model_loaded = false;
-	//model_wait = 0;
 
 	SET_CHAR_DEFAULT_COMPONENT_VARIATION(GetPlayerPed());
 	FORCE_FULL_VOICE(GetPlayerPed());
@@ -80,6 +78,12 @@ void player_model_apply(void)
 
 	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_health") == 1)
 		SET_PLAYER_INVINCIBLE(GetPlayerIndex(), true);
+
+	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_wanted") == 1)
+	{
+		CLEAR_WANTED_LEVEL(GetPlayerIndex());
+		SET_WANTED_MULTIPLIER(0.0);
+	}
 }
 
 void player_model_GTAIV_story1(void)
@@ -1539,14 +1543,12 @@ void player_accessories_apply(void)
 
 void player_weapons_cat(void)
 {
-
 	menu_header = trainer_weapons;
 	menu_addItem(trainer_gtaiv);
-	if (GET_CURRENT_EPISODE() == 1 || GET_CURRENT_EPISODE() == 2)
-	{
+	if (GET_CURRENT_EPISODE() == 1)
 		menu_addItem(trainer_tlad);
+	else if (GET_CURRENT_EPISODE() == 2)
 		menu_addItem(trainer_tbogt);
-	}
 }
 
 void player_weapons(void)
@@ -1677,7 +1679,7 @@ void player_weapons_TLAD(void)
 	if (!maxCap)
 		ENABLE_MAX_AMMO_CAP(true);
 
-	menu_addItem("Grenade Launcher");
+	menu_addItem("Grenade L");
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_1, &maxAmmo);
 	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
@@ -1688,16 +1690,15 @@ void player_weapons_TLAD(void)
 	menu_addAction();
 
 	menu_addItem("Pool Cue");
-	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_4, &maxAmmo);
-	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addItemNumber(1, 1);
 	menu_addAction();
 
-	menu_addItem("Sawnoff Shotgun");
+	menu_addItem("Sawnoff");
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_6, &maxAmmo);
 	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
-	menu_addItem("Semi-Auto Pistol");
+	menu_addItem("Semi-Auto");
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_7, &maxAmmo);
 	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
@@ -1729,7 +1730,7 @@ void player_weapons_TBOGT(void)
 	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
-	menu_addItem("Explosive AA12");
+	menu_addItem("Exp AA12");
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_10, &maxAmmo);
 	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
@@ -1744,7 +1745,7 @@ void player_weapons_TBOGT(void)
 	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
 
-	menu_addItem("Gold Uzi");
+	menu_addItem("Uzi");
 	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_13, &maxAmmo);
 	menu_addItemNumber(maxAmmo, maxAmmo);
 	menu_addAction();
@@ -1765,8 +1766,7 @@ void player_weapons_TBOGT(void)
 	menu_addAction();
 
 	menu_addItem("Parachute");
-	GET_MAX_AMMO(GetPlayerPed(), WEAPON_EPISODIC_21, &maxAmmo);
-	menu_addItemNumber(maxAmmo, maxAmmo);
+	menu_addItemNumber(1, 1);
 	menu_addAction();
 
 	if (!maxCap)
@@ -1802,19 +1802,25 @@ void player_weapons_apply(void)
 	{
 		uint weapon = item_selected - 4;
 		
-		if (GET_CURRENT_EPISODE() == 1)
+		if (last_selected[3] == 2)
 		{
-			weapon += 20;
+			if (GET_CURRENT_EPISODE() == 1)
+			{
+				weapon += 20;
 
-			if (weapon >= 23)
-				weapon++;
-		}
-		else if (GET_CURRENT_EPISODE() == 2)
-		{
-			weapon += 28;
+				if (weapon >= 23)
+					weapon++;
 
-			if (weapon == 36)
-				weapon += 4;
+				if (weapon >= 25)
+					weapon++;
+			}
+			else if (GET_CURRENT_EPISODE() == 2)
+			{
+				weapon += 28;
+
+				if (weapon == 37)
+					weapon = 41;
+			}
 		}
 		else
 		{
@@ -1879,7 +1885,7 @@ void player_health_apply(void)
 			while (!HAS_SCRIPT_LOADED("3s_trainer_health"))
 				WAIT(0);
 
-			START_NEW_SCRIPT("3s_trainer_health", 1024);
+			START_NEW_SCRIPT("3s_trainer_health", 128);
 			MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_health");
 			menu_item[item_selected].extra_val = true;
 		}
@@ -1906,8 +1912,12 @@ void player_wanted(void)
 	menu_addItemFloat(1, 10);
 	menu_addAction();
 
+	bool neverwanted;
+	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_wanted") == 1)
+	 neverwanted = true;
+
 	menu_addItem(trainer_neverwanted);
-	menu_addItemBool(false);
+	menu_addItemBool(neverwanted);
 	menu_addAction();
 }
 
@@ -1926,13 +1936,19 @@ void player_wanted_apply(void)
 	{
 		if (menu_item[item_selected].extra_val)
 		{
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("3s_trainer_wanted");
 			SET_WANTED_MULTIPLIER(1.0);
 			menu_item[item_selected].extra_val = false;
 		}
 		else
 		{
-			CLEAR_WANTED_LEVEL(GetPlayerIndex());
-			SET_WANTED_MULTIPLIER(0.0);
+			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("3s_trainer_wanted");
+			REQUEST_SCRIPT("3s_trainer_wanted");
+			while (!HAS_SCRIPT_LOADED("3s_trainer_wanted"))
+				WAIT(0);
+
+			START_NEW_SCRIPT("3s_trainer_wanted", 128);
+			MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_wanted");
 			menu_item[item_selected].extra_val = true;
 		}
 	}
