@@ -6,7 +6,7 @@
 #pragma once
 
 // Error ID's
-enum eGenvareErrorID
+enum eTrainerErrorID
 {
 	TRAINER_ERROR_ID_UNKNOWN,
 	TRAINER_ERROR_ID_INVALID,

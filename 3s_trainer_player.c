@@ -47,12 +47,15 @@ void player_model_apply(void)
 {
 	uint player_model = menu_item[item_selected].num_val;
 
-	float curHeading, curX, curY, curZ;
+	float curHeading;
 	GET_CHAR_HEADING(GetPlayerPed(), &curHeading);
-	GET_CHAR_COORDINATES(GetPlayerPed(), &curX, &curY, &curZ);
+
+	uint room_key;
+	if (IS_INTERIOR_SCENE())
+		GET_KEY_FOR_CHAR_IN_ROOM(GetPlayerPed(), &room_key);
 
 	if (IS_CHAR_IN_ANY_CAR(GetPlayerPed()))
-		GET_CAR_CHAR_IS_USING(GetPlayerPed(), &v_modding);
+		GET_CAR_CHAR_IS_USING(GetPlayerPed(), &v_modding); 
 	else
 		v_modding = 0;
 
@@ -69,12 +72,7 @@ void player_model_apply(void)
 	SET_CHAR_HEADING(GetPlayerPed(), curHeading);
 
 	if (IS_INTERIOR_SCENE())
-	{
-		float cGroundZ;
-		GET_GROUND_Z_FOR_3D_COORD(curX, curY, curZ, &cGroundZ);
-		SET_CHAR_COORDINATES_NO_OFFSET(GetPlayerPed(), curX, curY, cGroundZ);
-		LOAD_SCENE(curX, curY, curZ);
-	}
+		SET_ROOM_FOR_CHAR_BY_KEY(GetPlayerPed(), room_key);
 
 	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_health") == 1)
 		SET_PLAYER_INVINCIBLE(GetPlayerIndex(), true);
@@ -1853,7 +1851,7 @@ void player_health(void)
 
 	bool invincible;
 	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_health") == 1)
-	 invincible = true;
+		invincible = true;
 
 	menu_addItem(trainer_invincible);
 	menu_addItemBool(invincible);
@@ -1914,7 +1912,7 @@ void player_wanted(void)
 
 	bool neverwanted;
 	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_wanted") == 1)
-	 neverwanted = true;
+		neverwanted = true;
 
 	menu_addItem(trainer_neverwanted);
 	menu_addItemBool(neverwanted);
