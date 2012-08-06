@@ -1,6 +1,13 @@
 /**
  * This file is from Three-Socks Trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
  *
+ * Three-Socks Trainer
+ *
+ * @package 3s_trainer
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.0 FINAL
  */
 
 #include <natives.h>
@@ -21,7 +28,8 @@
 #include "3s_trainer_lang.h"
 #include "3s_trainer_locals.h"
 
-#include "project_setup.c"
+// Project
+#include "project_error.c"
 
 #include "3s_trainer_player.c"
 #include "3s_trainer_vehicle.c"
@@ -37,8 +45,11 @@
 
 void main(void)
 {
-	menu_core_init();
-	draw_init();
+	startup_script = "3s_trainer_startup";
+	inMenu = true;
+
+	menu_core_startup();
+	draw_startup();
 
 	while(true)
 	{
@@ -54,7 +65,7 @@ void main(void)
 				menu_core();
 
 			// Draw background/header/text.
-			drawCurvedWindow();
+			drawWindow();
 
 			// Only continue if in menu. 
 			// Otherwise drawFrontend will call invalid menu_item.
@@ -77,7 +88,7 @@ void main(void)
 			if (!inMenu)
 			{
 				// Draw background/header/text.
-				drawCurvedWindow();
+				drawWindow();
 				DrawPalette();
 			}
 		}

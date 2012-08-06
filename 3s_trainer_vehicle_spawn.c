@@ -1,6 +1,13 @@
 /**
  * This file is from Three-Socks Trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
  *
+ * Three-Socks Trainer
+ *
+ * @package 3s_trainer
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.0 FINAL
  */
 
 void gms_spawn_cat(void)

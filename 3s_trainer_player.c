@@ -1,6 +1,13 @@
 /**
- * This file is from Three-Socks trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
+ * This file is from Three-Socks Trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
  *
+ * Three-Socks Trainer
+ *
+ * @package 3s_trainer
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.0 FINAL
  */
 
 void player_model_gamecat(void)
@@ -73,15 +80,6 @@ void player_model_apply(void)
 
 	if (IS_INTERIOR_SCENE())
 		SET_ROOM_FOR_CHAR_BY_KEY(GetPlayerPed(), room_key);
-
-	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_health") == 1)
-		SET_PLAYER_INVINCIBLE(GetPlayerIndex(), true);
-
-	if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer_wanted") == 1)
-	{
-		CLEAR_WANTED_LEVEL(GetPlayerIndex());
-		SET_WANTED_MULTIPLIER(0.0);
-	}
 }
 
 void player_model_GTAIV_story1(void)
@@ -1907,7 +1905,7 @@ void player_wanted(void)
 	menu_addAction();
 
 	menu_addItem(trainer_wantedmulti);
-	menu_addItemFloat(1, 10);
+	menu_addItemFloat(0, 10);
 	menu_addAction();
 
 	bool neverwanted;
@@ -1929,7 +1927,7 @@ void player_wanted_apply(void)
 		APPLY_WANTED_LEVEL_CHANGE_NOW(GetPlayerIndex());
 	}
 	else if (item_selected == 3)
-		SET_WANTED_MULTIPLIER(menu_item[item_selected].float_val - 1);
+		SET_WANTED_MULTIPLIER(menu_item[item_selected].float_val);
 	else if (item_selected == 4)
 	{
 		if (menu_item[item_selected].extra_val)

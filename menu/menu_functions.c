@@ -1,6 +1,13 @@
 /**
  * This file is from Three-Socks Menu Library https://bitbucket.org/ThreeSocks/gtaiv-menu-library
  *
+ * GTAIV Menu Library
+ *
+ * @package menu
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.2.1
  */
 
 #pragma once
@@ -180,7 +187,7 @@ void menu_clean(void)
 	int I;
 	for (I = 1; I < (menu_len + 1); I++)
 	{
-		menu_item[I].name = " ";
+		menu_item[I].name = null_string;
 		menu_item[I].type = 0;
 		menu_item[I].num_val = 1;
 		menu_item[I].extra_val = 0;
@@ -188,8 +195,8 @@ void menu_clean(void)
 		menu_item[I].action = false;
 	}
 
-	custom_bool_on = " ";
-	custom_bool_off = " ";
+	custom_bool_on = null_string;
+	custom_bool_off = null_string;
 
 	// Reset menu_start_y & menu_max
 	menu_start_y = menu_consts_start_y;

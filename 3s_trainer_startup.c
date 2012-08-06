@@ -1,6 +1,13 @@
 /**
  * This file is from Three-Socks Trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
  *
+ * Three-Socks Trainer
+ *
+ * @package 3s_trainer
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.0 FINAL
  */
 
 #include <natives.h>
@@ -20,7 +27,7 @@ void main(void)
 
 		if (load_trainer)
 		{
-			if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer") == 0)
+			if (GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("3s_trainer") == 0 && GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT("menu_globals") == 0)
 			{
 				REQUEST_SCRIPT("3s_trainer");
 				while (!HAS_SCRIPT_LOADED("3s_trainer"))

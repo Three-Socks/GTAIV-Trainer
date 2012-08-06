@@ -1,23 +1,14 @@
 /**
- * This file is from Three-Socks trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
+ * This file is from Three-Socks Trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
  *
+ * Three-Socks Trainer
+ *
+ * @package 3s_trainer
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.0 FINAL
  */
-
-void project_setup(void)
-{
-	// Start y positioning.
-	menu_start_y = 0.0890;
-	// Spacing between each item.
-	menu_spacing = 0.0400;
-	// Max number of items before scrolling.
-	menu_max = 14;
-	// When to start scrolling.
-	menu_start_scrolling = 7;
-
-	startup_script = "3s_trainer_startup";
-
-	inMenu = true;
-}
 
 void project_error(uint error_id)
 {

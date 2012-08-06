@@ -1,6 +1,13 @@
 /**
  * This file is from Three-Socks Menu Library https://bitbucket.org/ThreeSocks/gtaiv-menu-library
  *
+ * GTAIV Menu Library
+ *
+ * @package menu
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.2.1
  */
 
 #pragma once
@@ -10,7 +17,7 @@
 #define menu_off "Off"
 
 // Settings
-float menu_start_y, menu_consts_start_y, menu_spacing;
+float menu_start_y, menu_consts_start_y, menu_spacing, toggle_pos_x;
 uint menu_max, menu_consts_max, menu_start_scrolling;
 
 Texture arrow_txd, rightarrow_txd;
@@ -23,6 +30,8 @@ uint menu_len;
 uint menu_level;
 bool menu_items_set;
 bool menu_shutdown;
+
+bool disableMenu;
 
 // Error
 bool inError;
@@ -62,7 +71,11 @@ menu menu_item[MAX_MENU_ITEMS];
 
 char *menu_header;
 
+char* null_string;
 char *custom_bool_on;
 char *custom_bool_off;
+
+uint custom_float_dp;
+float custom_float_change;
 
 char *startup_script;

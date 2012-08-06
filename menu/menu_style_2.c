@@ -14,18 +14,21 @@
 
 /*
 
-Style: 1
+Style: 2
 
-Name: Three-Socks Trainer.
+Name: ModManager.
 
-Desc: Mimics GTA Frontend.
+Desc: Only types 0 & 3 supported.
 
 */
 
 void style_setup(void)
 {
 	// Start y positioning.
-	menu_start_y = 0.0890;
+	if (GET_IS_WIDESCREEN())
+		menu_start_y = 0.2120 + 0.1300;
+	else
+		menu_start_y = 0.2180 + 0.1300;
 	// Spacing between each item.
 	menu_spacing = 0.0400;
 	// Max number of items before scrolling.
@@ -104,39 +107,38 @@ void set_up_draw(float width, float height, uint r, uint g, uint b, uint a)
 
 void drawHeader()
 {
-	float x, y, x2, y2;
+	float title_y, title_width, title_height;
 
-	//if (GET_IS_HIDEF())
-	//{
-		x = 0.0103;
-		y = 0.0960 - 0.0120;
-	/*}
+	if (GET_IS_WIDESCREEN())
+		title_y = 0.2120, title_width = 0.7799, title_height = 1.2000;
 	else
-	{
-		x = 0.0303;
-		y = 0.116 - 0.0120;
-	}*/
+		title_y = 0.2180, title_width = 0.6000, title_height = 0.9830;
 
-	set_up_draw(0.3500, 0.4775, 255, 255, 255, 255);
-	DISPLAY_TEXT_WITH_LITERAL_STRING(0.0826, 0.0710, "STRING", menu_header);
-	DRAW_RECT(x + (0.35 * 0.50000000), (y + -0.00370000) + 0.03450000, (0.2250 - 0.01000000) - 0.01000000, 0.00300000, 255, 255, 255, 255);
+#ifdef PC
+	SET_TEXT_FONT(7);
+#else
+	SET_TEXT_FONT(6);
+#endif
+
+	SET_TEXT_BACKGROUND(0);
+	SET_TEXT_DROPSHADOW(0, 0, 0, 0, 255);
+	SET_TEXT_EDGE(1, 0, 0, 0, 255);
+	SET_TEXT_PROPORTIONAL(1);
+	SET_TEXT_WRAP(0.0000, 1.0000);	
+
+	SET_TEXT_COLOUR(253, 160, 35, 255);
+	SET_TEXT_SCALE(title_width, title_height);
+	SET_TEXT_JUSTIFY(0);
+	SET_TEXT_CENTRE(1);
+	SET_TEXT_RIGHT_JUSTIFY(0);
+
+	DISPLAY_TEXT_WITH_LITERAL_STRING(0.5000, title_y, "STRING", menu_header);
 }
 
 void drawWindow(void)
 {
-	float x, y, x2, y2;
-
 	HIDE_HELP_TEXT_THIS_FRAME();
-
-	x = 0.0700;
-	y = 0.0640 - 0.0120;
-
-	if (menu_len > menu_consts_max)
-		y2 = 0.09 + (menu_consts_max * 0.04);
-	else
-		y2 = 0.09 + (menu_len * 0.04);
-
-	DRAW_CURVED_WINDOW(x, y, 0.2300, y2, 245);
+	DRAW_RECT(0.5000, 0.5000, 1.0000, 1.0000, 0, 0, 0, 167);
 }
 
 void drawFrontend(void)
@@ -164,9 +166,7 @@ void menu_draw(void)
 	h_r = 251, h_g = 162, h_b = 6;
 	//h_r = 206, h_g = 160, h_b = 22;
 
-	float pos_x = 0.0826, 
-
-	toggle_pos_x = 0.2500, 
+	float pos_x = 0.2000, 
 
 	menu_width = 0.3100, menu_height = 0.4550;
 
@@ -192,104 +192,29 @@ void menu_draw(void)
 
 			set_up_draw(menu_width, menu_height, r, g, b, a);
 
-			if (menu_item[I].type == 5)
-				DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x, Ipos_y, "STRING", GET_STRING_FROM_TEXT_FILE(GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(menu_item[I].num_val)));
-			else
-				DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x, Ipos_y, "STRING", menu_item[I].name);
+			DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x, Ipos_y, "STRING", menu_item[I].name);
 
-			if (menu_item[I].type == 1 || menu_item[I].type == 2)
-			{
-				float left_pos_x, main_pos_x;
-				uint dp;
-
-				if (menu_item[I].type == 2)
-				{
-					if (custom_float_dp != 0)
-						dp = custom_float_dp;
-					else
-						dp = 1;
-
-					if (dp == 1)
-					{
-						if (menu_item[I].float_val >= 10.0)
-						{
-							left_pos_x = 0.2260;
-							main_pos_x = 0.2370;
-						}
-						else if (menu_item[I].float_val < 10.0)
-						{
-							left_pos_x = 0.2370;
-							main_pos_x = 0.2470;
-						}
-					}
-					else if (dp == 3)
-					{
-						left_pos_x = 0.2060;
-						main_pos_x = 0.2170;
-					}
-				}
-				else
-				{
-					if (menu_item[I].num_val < 10)
-					{
-						left_pos_x = 0.2530;
-						main_pos_x = 0.2630;
-					}
-
-					if (menu_item[I].num_val >= 10)
-					{
-						left_pos_x = 0.2430;
-						main_pos_x = 0.2520;
-					}
-
-					if (menu_item[I].num_val >= 100)
-					{
-						left_pos_x = 0.2270;
-						main_pos_x = 0.2380;
-					}
-
-					if (menu_item[I].num_val >= 1000)
-					{
-						left_pos_x = 0.2200;
-						main_pos_x = 0.2300;
-					}
-				}
-
-				DRAW_SPRITE(rightarrow_txd, left_pos_x, Ipos_y + 0.0150, 0.0160, 0.0160, 180.0000, r, g, b, a);
-				set_up_draw(menu_width, menu_height, r, g, b, a);
-				if (menu_item[I].type == 1)
-					DISPLAY_TEXT_WITH_NUMBER(main_pos_x, Ipos_y, "NUMBR", menu_item[I].num_val);
-				else if (menu_item[I].type == 2)
-					DISPLAY_TEXT_WITH_FLOAT(main_pos_x, Ipos_y, "NUMBR", menu_item[I].float_val, dp);
-				DRAW_SPRITE(rightarrow_txd, 0.2850, Ipos_y + 0.0150, 0.0160, 0.0160, 0.0000, r, g, b, a);
-			}
-			else if (menu_item[I].type == 3)
+			if (menu_item[I].type == 3)
 			{
 				if (menu_item[I].extra_val)
 				{
 					set_up_draw(menu_width, menu_height, h_r, h_g, h_b, a);
 					char *txt_on;
 					if (!IS_STRING_NULL(custom_bool_on))
-					{
-						toggle_pos_x = 0.2000;
 						txt_on = custom_bool_on;
-					}
 					else
 						txt_on = menu_on;
-					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_on);
+					DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x + toggle_pos_x, Ipos_y, "STRING", txt_on);
 				}
 				else
 				{
 					set_up_draw(menu_width, menu_height, d_r, d_g, d_b, a);
 					char *txt_off;
 					if (!IS_STRING_NULL(custom_bool_off))
-					{
-						toggle_pos_x = 0.2000;
 						txt_off = custom_bool_off;
-					}
 					else
 						txt_off = menu_off;
-					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_off);
+					DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x + toggle_pos_x, Ipos_y, "STRING", txt_off);
 				}
 			}
 		}

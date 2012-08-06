@@ -1,6 +1,13 @@
 /**
  * This file is from Three-Socks Trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
  *
+ * Three-Socks Trainer
+ *
+ * @package 3s_trainer
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.0 FINAL
  */
 
 #pragma once
@@ -648,7 +655,7 @@ void gms_misc(void)
 	menu_addItem(trainer_dirtlevel);
 	float v_intensity;
 	GET_VEHICLE_DIRT_LEVEL(v_modding, &v_intensity);
-	menu_addItemFloat(v_intensity + 1.0, 16);
+	menu_addItemFloat(v_intensity, 16.0);
 	menu_addAction();
 	menu_addItem(trainer_visible);
 	menu_addItemBool(true);

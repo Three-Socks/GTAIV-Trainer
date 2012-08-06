@@ -1,6 +1,13 @@
 /**
- * This file is from Three-Socks trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
+ * This file is from Three-Socks Trainer Project https://bitbucket.org/ThreeSocks/gtaiv-trainer
  *
+ * Three-Socks Trainer
+ *
+ * @package 3s_trainer
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.0 FINAL
  */
 
 #pragma once
@@ -200,6 +207,6 @@
 #define trainer_error_locate_1 "vehicle."
 #define trainer_error_goback "Press ~INPUT_FRONTEND_CANCEL~ to go back."
 #define trainer_error_cdimage "Unable to load model."
-#define trainer_error_upgrade_na "No upgrades available."
+#define trainer_error_upgrade_na "No upgrades available"
 #define trainer_error_upgrade_na_1 "for this vehicle."
 #define trainer_error_appearance_na "No options available."
