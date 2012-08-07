@@ -193,3 +193,28 @@ void load_model_prioritized(void)
 		project_error(TRAINER_ERROR_ID_CDIMAGE);
 	}
 }
+
+void load_script_prioritized(void)
+{
+	if (DOES_SCRIPT_EXIST(load_script))
+	{
+		if (!script_requested)
+		{
+				REQUEST_SCRIPT(load_script);
+				script_requested = true;
+		}
+
+		if (HAS_SCRIPT_LOADED(load_script))
+		{
+			load_script = null_string;
+			script_loaded = true;
+			script_requested = false;
+			project_doAction();
+		}
+	}
+	else
+	{
+		load_script = null_string;
+		project_error(TRAINER_ERROR_ID_SCRIPT);
+	}
+}

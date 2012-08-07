@@ -105,6 +105,7 @@ void gms_colour(void)
 void gms_modify(void)
 {
 	menu_header = trainer_modify;
+
 	menu_addItem(trainer_doors);
 	menu_addItem(trainer_windows);
 	menu_addItem(trainer_handling);
@@ -265,12 +266,15 @@ void gms_handling(void)
 	menu_addItem(trainer_speed);
 	menu_addItemNumber(1, 100);
 	menu_addAction();
+
 	menu_addItem(trainer_brakes);
 	menu_addItemNumber(1, 100);
 	menu_addAction();
+
 	menu_addItem(trainer_steering);
 	menu_addItemNumber(1, 100);
 	menu_addAction();
+
 	menu_addItem(trainer_steerbias);
 	menu_addItemNumber(1, 10);
 	menu_addAction();
@@ -317,24 +321,31 @@ void gms_lights(void)
 	menu_addItem(trainer_headlights);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_hazardlights);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_indicatorlights);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_interiorlight);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_siren);
 	menu_addItemBool(IS_CAR_SIREN_ON(v_modding));
 	menu_addAction();
+
 	menu_addItem(trainer_alwayssiren);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_taxilight);
 	menu_addItemBool(ARE_TAXI_LIGHTS_ON(v_modding));
 	menu_addAction();
+
 	menu_addItem(trainer_lightmultiplier);
 	menu_addItemNumber(1, 10);
 	menu_addAction();
@@ -447,41 +458,53 @@ void gms_health(void)
 	GET_CAR_HEALTH(v_modding, &v_health);
 	menu_addItemNumber(v_health, 1000);
 	menu_addAction();
+
 	menu_addItem(trainer_enginehealth);
 	float v_engine_health = GET_ENGINE_HEALTH(v_modding);
 	uint v_numengine_health = FLOOR(v_engine_health);
 	menu_addItemNumber(v_numengine_health, 1000);
 	menu_addAction();
+
 	menu_addItem(trainer_bulletproof);
 	menu_addItemBool(modifyBulletProof);
 	menu_addAction();
+
 	menu_addItem(trainer_fireproof);
 	menu_addItemBool(modifyFireProof);
 	menu_addAction();
+
 	menu_addItem(trainer_explosionproof);
 	menu_addItemBool(modifyExplosionProof);
 	menu_addAction();
+
 	menu_addItem(trainer_collisionproof);
 	menu_addItemBool(modifyCollisionProof);
 	menu_addAction();
+
 	menu_addItem(trainer_meleeproof);
 	menu_addItemBool(modifyMeleeProof);
 	menu_addAction();
+
 	menu_addItem(trainer_strong);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_strongaxles);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_collision);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_damage);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_visibledamage);
 	menu_addItemBool(false);
 	menu_addAction();
+
 	menu_addItem(trainer_watertight);
 	menu_addItemBool(false);
 	menu_addAction();
@@ -657,9 +680,11 @@ void gms_misc(void)
 	GET_VEHICLE_DIRT_LEVEL(v_modding, &v_intensity);
 	menu_addItemFloat(v_intensity, 16.0);
 	menu_addAction();
+
 	menu_addItem(trainer_visible);
 	menu_addItemBool(true);
 	menu_addAction();
+
 	menu_addItem(trainer_missionvehicle);
 	menu_addAction();
 }

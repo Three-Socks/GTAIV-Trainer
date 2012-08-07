@@ -21,13 +21,16 @@ enum eTrainerErrorID
 	TRAINER_ERROR_ID_CDIMAGE,
 	TRAINER_ERROR_ID_UPGRADE_NA,
 	TRAINER_ERROR_ID_APPEARANCE_NA,
+	TRAINER_ERROR_ID_SCRIPT,
 };
 
 bool inMenu;
 
 uint load_model; 
-
 bool model_loaded, model_requested;
+
+char* load_script;
+bool script_loaded, script_requested;
 
 uint window_notintact[5], door_damaged[7], door_opened[7];
 

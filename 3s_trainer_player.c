@@ -1876,14 +1876,15 @@ void player_health_apply(void)
 		}
 		else
 		{
-			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("3s_trainer_health");
-			REQUEST_SCRIPT("3s_trainer_health");
-			while (!HAS_SCRIPT_LOADED("3s_trainer_health"))
-				WAIT(0);
-
-			START_NEW_SCRIPT("3s_trainer_health", 128);
-			MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_health");
-			menu_item[item_selected].extra_val = true;
+			if (!script_loaded)
+				load_script = "3s_trainer_health";
+			else
+			{
+				TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("3s_trainer_health");
+				START_NEW_SCRIPT("3s_trainer_health", 128);
+				MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_health");
+				menu_item[item_selected].extra_val = true;
+			}
 		}
 	}
 }
@@ -1938,14 +1939,15 @@ void player_wanted_apply(void)
 		}
 		else
 		{
-			TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("3s_trainer_wanted");
-			REQUEST_SCRIPT("3s_trainer_wanted");
-			while (!HAS_SCRIPT_LOADED("3s_trainer_wanted"))
-				WAIT(0);
-
-			START_NEW_SCRIPT("3s_trainer_wanted", 128);
-			MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_wanted");
-			menu_item[item_selected].extra_val = true;
+			if (!script_loaded)
+				load_script = "3s_trainer_wanted";
+			else
+			{
+				TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("3s_trainer_wanted");
+				START_NEW_SCRIPT("3s_trainer_wanted", 128);
+				MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_wanted");
+				menu_item[item_selected].extra_val = true;
+			}
 		}
 	}
 }

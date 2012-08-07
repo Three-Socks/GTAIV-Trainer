@@ -60,6 +60,9 @@ void main(void)
 			if (load_model != 0 && !model_loaded)
 				load_model_prioritized();
 
+			if (!IS_STRING_NULL(load_script) && !script_loaded)
+				load_script_prioritized();
+
 			// Core menu function (Catch button press. Set menu).
 			if (load_model == 0)
 				menu_core();

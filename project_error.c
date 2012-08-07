@@ -36,6 +36,8 @@ void project_error(uint error_id)
 	}
 	else if (error_id == TRAINER_ERROR_ID_APPEARANCE_NA)
 		menu_addItem(trainer_error_appearance_na);
+	else if (error_id == TRAINER_ERROR_ID_SCRIPT)
+		menu_addItem(trainer_error_script);
 
 	menu_addItem(trainer_error_goback);
 	inError = true;

@@ -203,10 +203,11 @@
 // Error
 #define trainer_error "ERROR!"
 #define trainer_error_invalid "Invalid Menu."
-#define trainer_error_locate "Unable to locate a "
+#define trainer_error_locate "Unable to locate a"
 #define trainer_error_locate_1 "vehicle."
 #define trainer_error_goback "Press ~INPUT_FRONTEND_CANCEL~ to go back."
 #define trainer_error_cdimage "Unable to load model."
 #define trainer_error_upgrade_na "No upgrades available"
 #define trainer_error_upgrade_na_1 "for this vehicle."
 #define trainer_error_appearance_na "No options available."
+#define trainer_error_script "Unable to load script."
