@@ -302,7 +302,7 @@ void gms_handling_apply(void)
 			while (!HAS_SCRIPT_LOADED(script_name))
 				WAIT(0);
 
-			START_NEW_SCRIPT_WITH_ARGS(script_name, &handling_selected, 1, 1024);
+			START_NEW_SCRIPT_WITH_ARGS(script_name, &handling_selected, 1, 128);
 			MARK_SCRIPT_AS_NO_LONGER_NEEDED(script_name);
 		}
 		else

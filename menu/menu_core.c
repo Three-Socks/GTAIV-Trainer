@@ -14,13 +14,16 @@
 
 void menu_core_startup(void)
 {
-	item_highlighted = 1;
-	menu_level = 1;
-	press_counter = 2;
-	press_counter_timesby = 1;
+	if (menu_level == 0)
+	{
+		item_highlighted = 1;
+		menu_level = 1;
+		press_counter = 2;
+		press_counter_timesby = 1;
 
-	custom_bool_on = null_string;
-	custom_bool_off = null_string;
+		custom_bool_on = null_string;
+		custom_bool_off = null_string;
+	}
 
 	style_setup();
 
@@ -150,7 +153,7 @@ void menu_core_catchButtonPress(void)
 		}
 		else if (menu_item[item_highlighted].type == 2)
 		{
-			if (menu_item[item_highlighted].extra_val != 0 && menu_item[item_highlighted].float_val == menu_item[item_highlighted].extra_val)
+			if (menu_item[item_highlighted].extra_val != 0 && menu_item[item_highlighted].float_val == (float) menu_item[item_highlighted].extra_val)
 				menu_item[item_highlighted].float_val = 0.0;
 			else
 			{
@@ -164,7 +167,6 @@ void menu_core_catchButtonPress(void)
 			
 			PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_SERVER_OPTION_CHANGE");
 		}
-
 	}
 
 	if (menu_forward_pressed() && press_counter_timesby < 2 && !inError)
@@ -222,7 +224,10 @@ void menu_core_catchButtonPress(void)
 			}
 		}
 		else if (!disableMenu)
+		{
 			menu_core_shutdown();
+			menu_level = 0;
+		}
 
 		PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_SERVER_HIGHLIGHT");
 	}

@@ -12,12 +12,14 @@
 
 void player_model_gamecat(void)
 {
-	menu_header = trainer_model;
+	menu_header = trainer_model_changer;
 	menu_addItem(trainer_gtaiv);
-	if (GET_CURRENT_EPISODE() == 1)
+	#ifdef TLAD
 		menu_addItem(trainer_tlad);
-	else if (GET_CURRENT_EPISODE() == 2)
+	#endif
+	#ifdef TBOGT
 		menu_addItem(trainer_tbogt);
+	#endif
 }
 
 void player_model_cat(void)
@@ -37,16 +39,17 @@ void player_model_cat(void)
 	}
 	else if (item_selected == 2)
 	{
-		menu_addItem(trainer_gangs);
-		menu_addItem(trainer_lostbuddies);
-		menu_addItem(trainer_ambients);
-	}
-	else if (item_selected == 3)
-	{
-		menu_addItem(trainer_gangs);
-		menu_addItem(trainer_ambients);
-		menu_addItem(trainer_fighters);
-		menu_addItem(trainer_mission);
+		#ifdef TLAD
+			menu_addItem(trainer_gangs);
+			menu_addItem(trainer_lostbuddies);
+			menu_addItem(trainer_ambients);
+		#endif
+		#ifdef TBOGT
+			menu_addItem(trainer_gangs);
+			menu_addItem(trainer_ambients);
+			menu_addItem(trainer_fighters);
+			menu_addItem(trainer_mission);
+		#endif
 	}
 }
 
@@ -808,6 +811,7 @@ void player_model_GTAIV_F_background(void)
 	menu_addAction();
 }
 
+#ifdef TLAD
 void player_model_TLAD_story(void)
 {
 	menu_addItemHash("Niko", MODEL_IG_NIKO);
@@ -1055,7 +1059,9 @@ void player_model_TLAD_ambients(void)
 	menu_addItemHash("Stubbs Suit", MODEL_CS_STUBBS_SUIT);
 	menu_addAction();
 }*/
+#endif
 
+#ifdef TBOGT
 void player_model_TBOGT_story(void)
 {
 	menu_addItemHash("Ahmad", MODEL_IG_AHMAD);
@@ -1373,6 +1379,57 @@ void player_model_TBOGT_MissionSpecific(void)
 	menu_addItemHash("Yusef", MODEL_CS_YUSEF);
 	menu_addAction();
 }*/
+#endif
+
+void player_model_gamecat_set(uint game)
+{
+	if (game == 1)
+	{
+		if (item_selected == 1)
+			player_model_GTAIV_story1();
+		else if (item_selected == 2)
+			player_model_GTAIV_story2();
+		else if (item_selected == 3)
+			player_model_GTAIV_gangs();
+		else if (item_selected == 4)
+			player_model_GTAIV_M_foreground1();
+		else if (item_selected == 5)
+			player_model_GTAIV_M_foreground2();
+		else if (item_selected == 6)
+			player_model_GTAIV_M_background1();
+		else if (item_selected == 7)
+			player_model_GTAIV_M_background2();
+		else if (item_selected == 8)
+			player_model_GTAIV_F_foreground();
+		else if (item_selected == 9)
+			player_model_GTAIV_F_background();
+	}
+	else if (game == 2)
+	{
+		#ifdef TLAD
+			if (item_selected == 1)
+				player_model_TLAD_story();
+			else if (item_selected == 2)
+				player_model_TLAD_gangs();
+			else if (item_selected == 3)
+				player_model_TLAD_buddies();
+			else if (item_selected == 4)
+				player_model_TLAD_ambients();
+		#endif
+		#ifdef TBOGT
+			if (item_selected == 1)
+				player_model_TBOGT_story();
+			else if (item_selected == 2)
+				player_model_TBOGT_gangs();
+			else if (item_selected == 3)
+				player_model_TBOGT_ambients();
+			else if (item_selected == 4)
+				player_model_TBOGT_fighters();
+			else if (item_selected == 5)
+				player_model_TBOGT_MissionSpecific();
+		#endif
+	}
+}
 
 void player_appearance_cat(void)
 {
@@ -1541,10 +1598,12 @@ void player_weapons_cat(void)
 {
 	menu_header = trainer_weapons;
 	menu_addItem(trainer_gtaiv);
-	if (GET_CURRENT_EPISODE() == 1)
+	#ifdef TLAD
 		menu_addItem(trainer_tlad);
-	else if (GET_CURRENT_EPISODE() == 2)
+	#endif
+	#ifdef TBOGT
 		menu_addItem(trainer_tbogt);
+	#endif
 }
 
 void player_weapons(void)
@@ -1662,6 +1721,7 @@ void player_weapons_GTAIV(void)
 		ENABLE_MAX_AMMO_CAP(false);
 }
 
+#ifdef TLAD
 void player_weapons_TLAD(void)
 {
 	uint maxAmmo;
@@ -1707,7 +1767,9 @@ void player_weapons_TLAD(void)
 	if (!maxCap)
 		ENABLE_MAX_AMMO_CAP(false);
 }
+#endif
 
+#ifdef TBOGT
 void player_weapons_TBOGT(void)
 {
 	uint maxAmmo;
@@ -1768,6 +1830,7 @@ void player_weapons_TBOGT(void)
 	if (!maxCap)
 		ENABLE_MAX_AMMO_CAP(false);
 }
+#endif
 
 void player_weapons_options_apply(void)
 {
@@ -1800,8 +1863,7 @@ void player_weapons_apply(void)
 		
 		if (last_selected[3] == 2)
 		{
-			if (GET_CURRENT_EPISODE() == 1)
-			{
+			#ifdef TLAD
 				weapon += 20;
 
 				if (weapon >= 23)
@@ -1809,14 +1871,13 @@ void player_weapons_apply(void)
 
 				if (weapon >= 25)
 					weapon++;
-			}
-			else if (GET_CURRENT_EPISODE() == 2)
-			{
+			#endif
+			#ifdef TBOGT
 				weapon += 28;
 
 				if (weapon == 37)
 					weapon = 41;
-			}
+			#endif
 		}
 		else
 		{
@@ -1883,6 +1944,7 @@ void player_health_apply(void)
 				TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("3s_trainer_health");
 				START_NEW_SCRIPT("3s_trainer_health", 128);
 				MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_health");
+				script_loaded = false;
 				menu_item[item_selected].extra_val = true;
 			}
 		}
@@ -1946,6 +2008,7 @@ void player_wanted_apply(void)
 				TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("3s_trainer_wanted");
 				START_NEW_SCRIPT("3s_trainer_wanted", 128);
 				MARK_SCRIPT_AS_NO_LONGER_NEEDED("3s_trainer_wanted");
+				script_loaded = false;
 				menu_item[item_selected].extra_val = true;
 			}
 		}

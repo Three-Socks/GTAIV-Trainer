@@ -14,10 +14,12 @@ void gms_spawn_cat(void)
 {
 	menu_header = trainer_spawn;
 	menu_addItem(trainer_gtaiv);
-	if (GET_CURRENT_EPISODE() == 1)
+	#ifdef TLAD
 		menu_addItem(trainer_tlad);
-	else if (GET_CURRENT_EPISODE() == 2)
+	#endif
+	#ifdef TBOGT
 		menu_addItem(trainer_tbogt);
+	#endif
 }
 
 void gms_spawn(void)
@@ -41,20 +43,18 @@ void gms_spawn(void)
 	}
 	else if (item_selected == 2)
 	{
-		if (GET_CURRENT_EPISODE() == 1)
-		{
+		#ifdef TLAD
 			menu_addItem(trainer_cars);
 			menu_addItem(trainer_motorcycles);
 			menu_addItem(trainer_motorcycles2);
-		}
-		else if (GET_CURRENT_EPISODE() == 2)
-		{
+		#endif
+		#ifdef TBOGT
 			menu_addItem(trainer_cars);
 			menu_addItem(trainer_cars2);
 			menu_addItem(trainer_motorcycles);
 			menu_addItem(trainer_boats);
 			menu_addItem(trainer_aircraft);
-		}
+		#endif
 	}
 }
 
@@ -403,8 +403,7 @@ void gms_spawn_list(void)
 	}
 	else if (last_selected[3] == 2)
 	{
-		if (GET_CURRENT_EPISODE() == 1)
-		{
+		#ifdef TLAD
 			if (item_selected == 1)
 			{
 				menu_addItemGXTHash(MODEL_GBURRITO);
@@ -464,9 +463,8 @@ void gms_spawn_list(void)
 				menu_addItemGXTHash(MODEL_WOLFSBANE);
 				menu_addAction();
 			}
-		}
-		else if (GET_CURRENT_EPISODE() == 2)
-		{
+		#endif
+		#ifdef TBOGT
 			if (item_selected == 1)
 			{
 				menu_addItemGXTHash(MODEL_SLAMVAN);
@@ -548,7 +546,6 @@ void gms_spawn_list(void)
 				menu_addItemGXTHash(MODEL_SKYLIFT);
 				menu_addAction();
 			}
-		}
-
+		#endif
 	}
 }

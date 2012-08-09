@@ -37,7 +37,7 @@ void project_set(void)
 		{
 			// Player
 			menu_header = trainer_player;
-			menu_addItem(trainer_model);
+			menu_addItem(trainer_model_changer);
 			menu_addItem(trainer_appearance);
 			menu_addItem(trainer_accessories);
 			menu_addItem(trainer_weapons);
@@ -80,10 +80,12 @@ void project_set(void)
 					player_weapons_GTAIV();
 				else if (item_selected == 2)
 				{
-					if (GET_CURRENT_EPISODE() == 1)
+					#ifdef TLAD
 						player_weapons_TLAD();
-					else if (GET_CURRENT_EPISODE() == 2)
+					#endif
+					#ifdef TBOGT
 						player_weapons_TBOGT();
+					#endif
 				}
 			}
 
@@ -93,57 +95,10 @@ void project_set(void)
 		{
 			if (subMenu == 1)
 			{
-				menu_header = trainer_model;
+				menu_header = trainer_model_changer;
 				uint game = last_selected[menu_level - 2];
 
-				if (game == 1)
-				{
-					if (item_selected == 1)
-						player_model_GTAIV_story1();
-					else if (item_selected == 2)
-						player_model_GTAIV_story2();
-					else if (item_selected == 3)
-						player_model_GTAIV_gangs();
-					else if (item_selected == 4)
-						player_model_GTAIV_M_foreground1();
-					else if (item_selected == 5)
-						player_model_GTAIV_M_foreground2();
-					else if (item_selected == 6)
-						player_model_GTAIV_M_background1();
-					else if (item_selected == 7)
-						player_model_GTAIV_M_background2();
-					else if (item_selected == 8)
-						player_model_GTAIV_F_foreground();
-					else if (item_selected == 9)
-						player_model_GTAIV_F_background();
-				}
-				else if (game == 2)
-				{
-					if (GET_CURRENT_EPISODE() == 1)
-					{
-						if (item_selected == 1)
-							player_model_TLAD_story();
-						else if (item_selected == 2)
-							player_model_TLAD_gangs();
-						else if (item_selected == 3)
-							player_model_TLAD_buddies();
-						else if (item_selected == 4)
-							player_model_TLAD_ambients();
-					}
-					else if (GET_CURRENT_EPISODE() == 2)
-					{
-						if (item_selected == 1)
-							player_model_TBOGT_story();
-						else if (item_selected == 2)
-							player_model_TBOGT_gangs();
-						else if (item_selected == 3)
-							player_model_TBOGT_ambients();
-						else if (item_selected == 4)
-							player_model_TBOGT_fighters();
-						else if (item_selected == 5)
-							player_model_TBOGT_MissionSpecific();
-					}
-				}
+				player_model_gamecat_set(game);
 			}
 			return;
 		}

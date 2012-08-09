@@ -21,6 +21,14 @@
 #define MAX_MENU_LEVLS 5
 #define STYLE 1
 
+// Trainer
+/*
+GTAIV
+TLAD
+TBOGT
+*/
+#define GTAIV
+
 // Menu
 #include "menu/menu.h"
 

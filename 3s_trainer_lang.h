@@ -22,7 +22,7 @@
 #define trainer_tbogt "Ballad of Gay Tony"
 
 // Player
-#define trainer_model "Model Changer"
+#define trainer_model_changer "Model Changer"
 #define trainer_appearance "Appearance"
 #define trainer_accessories "Accessories"
 #define trainer_weapons "Weapons"
